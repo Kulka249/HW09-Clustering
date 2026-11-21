@@ -4,33 +4,25 @@ from point import makePointList
 
 
 def kmeans(point_data, cluster_data):
-    """Performs k-means clustering on points.
+    points = makePointList(point_data)
+    clusters = createClusters(cluster_data)
 
-    Args:
-      point_data: a p-by-d numpy array used for creating a list of Points.
-      cluster_data: A k-by-d numpy array used for creating a list of Clusters.
+    changed = True
 
-    Returns:
-      A list of clusters (with update centers) after peforming k-means
-      clustering on the points initialized from point_data
-    """
-    # Fill in
+    while changed:
+        changed = False
 
-    # 1. Make list of points using makePointList and point_data
+        for p in points:
+            closest_cluster = p.closest(clusters)
 
-    # 2. Make list of clusters using createClusters and cluster_data
+            if p.moveToCluster(closest_cluster):
+                changed = True
 
-    # 3. For as long as points keep moving between clusters:
+        for c in clusters:
+            c.updateCenter()
 
-    #   A. Move every point to its closest cluster (use Point.closest and
-    #     Point.moveToCluster)
-    #     Hint: keep track here whether any point changed clusters by
-    #           seeing if any moveToCluster call returns "True"
-
-    #   B. Update the centers for each cluster (use Cluster.updateCenter)
-
-    # 4. Return the list of clusters, with the centers in their final positions
     return clusters
+
 
 
 if __name__ == "__main__":

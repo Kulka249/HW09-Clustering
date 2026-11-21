@@ -30,26 +30,34 @@ class Cluster:
 
     @property
     def avgDistance(self):
-        """Calculates the average distance of points in the cluster to the center.
+                
+        if len(self.points) == 0:
+            return 0
 
-        Returns:
-          A float representing the average distance from all points in self.points
-          to self.center.
-        """
-        # fill in
-        pass
+        total = 0
+
+        for p in self.points:
+            total += p.distFrom(self.center)
+        return total / len(self.points)
+
 
     def updateCenter(self):
-        """Updates self.center to be the average of all points in the cluster.
+                
+        if len(self.points) == 0:
+            return self.center.coords
 
-        If no points are in the cluster, then self.center should be unchanged.
+        coords = [0] * self.dim
 
-        Returns:
-          The coords of self.center.
-        """
-        # fill in
-        # Hint: make sure self.center is a Point object after this function runs.
-        pass
+        for p in self.points:
+            for i in range(self.dim):
+                coords[i] += p.coords[i]
+
+        for i in range(self.dim):
+            coords[i] /= len(self.points)
+
+        self.center = Point(coords)
+        return self.center.coords
+
 
     def printAllPoints(self):
         print(str(self))

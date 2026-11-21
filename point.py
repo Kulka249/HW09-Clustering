@@ -3,15 +3,8 @@ import numpy as np
 
 
 class Point:
-    """An n-dimensional Point.
-
-    Attributes:
-      coords: A list of length n specifying each coordinate of the Point.
-      currCluster: A reference to the Cluster object the Point is in.
-    """
 
     def __init__(self, coords):
-        """Initializes a Point with a list of coordinates."""
 
         self.coords = coords
         self.currCluster = None
@@ -21,14 +14,6 @@ class Point:
         return len(self.coords)
 
     def distFrom(self, other):
-        """Calculates distance between two Points.
-
-        Args:
-          other: The Point we are calculating the distance from.
-
-        Returns:
-          A float representing the Euclidean distance between this point and other.
-        """
         # Error checking, keep this here.
         if self.dim != other.dim:
             raise ValueError(
@@ -39,9 +24,13 @@ class Point:
 
         # Hint: Refer to the formula given in README.md for the Euclidean distance
 
-        # fill in
+        distance = 0
 
-        return 0
+        for i in range(self.dim):
+            distance += (self.coords[i] - other.coords[i]) ** 2
+
+        return math.sqrt(distance)
+
 
     def moveToCluster(self, dest):
         """Reassigns this Point to a new Cluster.
@@ -91,17 +80,8 @@ class Point:
 
 
 def makePointList(data):
-    """Creates a list of points from initialization data.
-    #This function is outside Point Class.
-    Args:
-      data: A p-by-d numpy array.
+    return [Point(row) for row in data]
 
-    Returns:
-      A list of length p containing d-dimensional Point objects, each Point's
-      coordinates correspond to one row of data.
-    """
-    # fill in
-    pass
 
 
 if __name__ == "__main__":
